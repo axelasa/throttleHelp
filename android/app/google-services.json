@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "81111986828",
+    "project_id": "trnk-ice",
+    "storage_bucket": "trnk-ice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81111986828:android:dff8e1bbe1500f408181a9",
+        "android_client_info": {
+          "package_name": "com.asa.trnk_ice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeWewWsEj6PKwi4NHje5qsD0jfc70jLeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
