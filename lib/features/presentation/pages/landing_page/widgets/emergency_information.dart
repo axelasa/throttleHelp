@@ -76,9 +76,18 @@ class _EmergencyInformationState extends State<EmergencyInformation> {
               StreamBuilder(
                 stream: _collectionReference.doc(userdata?.uid).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator(),);
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(child: _showFailedSnackBar('Error', ' ${snapshot.error}'),);
+                  }
+
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator.adaptive(),
+                    return  Center(
+                      child: _showWarningSnackBar('Sorry','No data found'),
                     );
                   }
                   if (snapshot.data!.exists) {
@@ -343,6 +352,37 @@ class _EmergencyInformationState extends State<EmergencyInformation> {
     );
   }
 
+  _showFailedSnackBar(String title,String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: title,
+            message: message,
+            contentType: ContentType.failure,
+          )
+      ),
+    );
+
+  }
+
+  _showWarningSnackBar(String title,String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: title,
+            message: message,
+            contentType: ContentType.warning,
+          )
+      ),
+    );
+
+  }
 
 }
 

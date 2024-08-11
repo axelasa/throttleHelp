@@ -10,11 +10,16 @@ import 'package:trnk_ice/features/presentation/pages/landing_page/widgets/emerge
 import 'package:trnk_ice/features/presentation/pages/landing_page/widgets/events.dart';
 import 'package:trnk_ice/features/presentation/pages/landing_page/widgets/vehicle_data.dart';
 import 'package:trnk_ice/features/presentation/pages/profile/presentation/profile.dart';
+import 'package:trnk_ice/features/presentation/pages/services/presentation/widgets/accessories.dart';
+import 'package:trnk_ice/features/presentation/pages/services/presentation/widgets/gear.dart';
+import 'package:trnk_ice/features/presentation/pages/services/presentation/widgets/mechanics.dart';
+import 'package:trnk_ice/features/presentation/pages/services/presentation/widgets/service_parts.dart';
 import 'package:trnk_ice/home.dart';
 import 'package:trnk_ice/provider/user_provider.dart';
 
 import 'features/presentation/pages/auth/pages/presentation/sign_in.dart';
 import 'features/presentation/pages/auth/pages/presentation/sign_up.dart';
+import 'features/presentation/pages/services/presentation/widgets/garage.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -56,6 +61,11 @@ class MyApp extends StatelessWidget {
           '/vehicle_data':(context) => const VehicleData(),
           '/add_emergency_information':(context) => const AddEmergencyInformation(),
           '/profile':(context) => const ProfilePage(),
+          '/accessories':(context) => const Accessories(),
+          '/garage':(context) => const Garage(),
+          '/gear':(context) => const Gear(),
+          '/mechanics':(context) => const Mechanics(),
+          '/service_parts':(context) => const ServiceParts(),
         },
       ),
     );
