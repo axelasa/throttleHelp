@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/common/widgets/screen_title.dart';
+import '../../../utility/snack_bar.dart';
 
 class ServiceParts extends StatefulWidget {
   const ServiceParts({super.key});
@@ -60,13 +61,17 @@ class _ServicePartsState extends State<ServiceParts> {
                   }
 
                   if (snapshot.hasError) {
-                    return Center(
-                      child: _showSnackBar('Error', ' ${snapshot.error}'),);
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      SnackBars.showSnackBarError(context, 'Error', '${snapshot.error}');
+                    });
+                    return Center(child: Text('Error, ${snapshot.error}'),);
                   }
 
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return Center(
-                      child: _showSnackBar('Error', 'No services available.'),);
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      SnackBars.showSnackBarWarning(context, 'Oops','No service Parts are available at the moment.');
+                    });
+                    return const Center(child: Text( 'No service Parts available.'),);
                   }
 
                   final serviceParts = snapshot.data!.docs;
@@ -105,21 +110,6 @@ class _ServicePartsState extends State<ServiceParts> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  _showSnackBar(String title, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: title,
-            message: message,
-            contentType: ContentType.failure,
-          )
       ),
     );
   }
