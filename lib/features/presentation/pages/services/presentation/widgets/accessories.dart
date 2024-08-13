@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:trnk_ice/features/presentation/pages/utility/snack_bar.dart';
 
 import '../../../../../../core/common/widgets/screen_title.dart';
 
@@ -57,17 +58,23 @@ class _AccessoriesState extends State<Accessories> {
                 }
 
                 if (snapshot.hasError) {
-                  return Center(child: _showSnackBar('Error', ' ${snapshot.error}'),);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    SnackBars.showSnackBarError(context, 'Error', '${snapshot.error}');
+                  });
+                  return Center(child: Text('Error, ${snapshot.error}'),);
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return  Center(child: _showSnackBar('Error','No services available.'),);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    SnackBars.showSnackBarWarning(context, 'Oops','No accessories are available at the moment.');
+                  });
+                  return  const Center(child: Text('No services available.'),);
                 }
 
                 final accessories = snapshot.data!.docs;
                 List<Map<String,dynamic>> accessoriesList =[];
 
-                //gather All mechanics from the service
+                //gather All accessories from the service
                 for (var accessory in accessories){
                   final serviceData = accessory.data() as Map<String,dynamic>;
                   List<dynamic> accessories = serviceData['used'] ?? [];
@@ -99,21 +106,5 @@ class _AccessoriesState extends State<Accessories> {
         ),
       ),
     );
-  }
-
-  _showSnackBar(String title,String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: title,
-            message: message,
-            contentType: ContentType.failure,
-          )
-      ),
-    );
-
   }
 }

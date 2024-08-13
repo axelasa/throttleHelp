@@ -165,24 +165,29 @@ class _LandingPageState extends State<LandingPage> {
                           height: 15,
                         ),
                         Center(
-                          child: Card(
-                            color: AppColors.secondaryColor,
-                            // shadowColor: Colors.white38,
-                            elevation: 1.5,
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 50,
-                              child: Center(
-                                child: Text(
-                                  'Events Information',
-                                  style: GoogleFonts.akshar(
-                                    textStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, '/events');
+                            },
+                            child: Card(
+                              color: AppColors.secondaryColor,
+                              // shadowColor: Colors.white38,
+                              elevation: 1.5,
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: Center(
+                                  child: Text(
+                                    'Events Information',
+                                    style: GoogleFonts.akshar(
+                                      textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),

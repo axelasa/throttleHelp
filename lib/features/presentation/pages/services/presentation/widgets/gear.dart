@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/common/widgets/screen_title.dart';
+import '../../../utility/snack_bar.dart';
 
 class Gear extends StatefulWidget {
   const Gear({super.key});
@@ -57,11 +58,17 @@ class _GearState extends State<Gear> {
                 }
 
                 if (snapshot.hasError) {
-                  return Center(child: _showSnackBar('Error', ' ${snapshot.error}'),);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    SnackBars.showSnackBarError(context, 'Error', '${snapshot.error}');
+                  });
+                  return Center(child: Text( ' ${snapshot.error}'),);
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return  Center(child: _showSnackBar('Error','No services available.'),);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    SnackBars.showSnackBarWarning(context, 'Oops','No gears are available at the moment.');
+                  });
+                  return  const Center(child: Text('No gears available.'),);
                 }
 
                 final gears = snapshot.data!.docs;
@@ -99,21 +106,5 @@ class _GearState extends State<Gear> {
         ),
       ),
     );
-  }
-
-  _showSnackBar(String title,String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          elevation: 0,
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: title,
-            message: message,
-            contentType: ContentType.failure,
-          )
-      ),
-    );
-
   }
 }
